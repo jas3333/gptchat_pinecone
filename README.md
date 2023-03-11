@@ -32,7 +32,7 @@ npm install
     - Dimensions: 1536
 
 Make a note of the index location. You should see something like `indexname-2342342a.svc.us-east1-gcp.pinecone.io`. You'll need it for the
-environments in the docker-compose.yml
+environments in the `.env`
 
 2. An OpenAI API key to access their LLMs. This app uses gpt-3.5-turbo and Ada-002 for embedding. [OpenAI](https://openai.com)
    Their website is horrible. You'll just have to click around until you can find the signup link....
