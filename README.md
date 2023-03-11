@@ -9,6 +9,12 @@ This app is an interface to OpenAI's gpt-3.5-turbo API with its own set of featu
    around 10 previous conversations, while this version has a potential of a million+ thanks to
    Pinecone's vector database and OpenAI's embedding model.
 
+#### Roadmap:
+
+1. Add the ability to import documents into the databases increasing the knowledge of the bots.
+
+If you have a feature you would like to see implemented, open up a discussion.
+
 ## To install:
 
 git clone the repo:
