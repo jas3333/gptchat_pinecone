@@ -38,7 +38,6 @@ const callGPT = async (prompt, temperature, top_p, maxTokens, presencePenalty, f
     };
 
     const response = await axios.post('https://api.openai.com/v1/chat/completions', promptData, options);
-    console.log(response.data);
     const data = response.data.choices[0].message.content;
     const usage = response.data.usage.total_tokens;
 

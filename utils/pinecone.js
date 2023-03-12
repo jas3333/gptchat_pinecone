@@ -10,7 +10,7 @@ const queryIndex = async (vectors) => {
             'Api-Key': process.env.PINECONE_API,
         },
         data: {
-            topK: 3,
+            topK: Number(process.env.topK),
             vector: vectors,
             includeValues: 'false',
             includeMetadata: 'false',

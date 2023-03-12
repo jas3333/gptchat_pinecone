@@ -12,7 +12,6 @@ const sendQuestion = async (req, res) => {
         previousResponse = req.body.conversation[req.body.conversation.length - 1].botResponse;
     }
 
-    console.log(`User: ${previousQuestion} ${personas[req.body.persona].name}: ${previousResponse}`);
     let vector = await getEmbeddings(req.body.promptQuestion);
 
     let uniqueID = uuidv4();
@@ -23,19 +22,21 @@ const sendQuestion = async (req, res) => {
         message: req.body.promptQuestion,
     };
 
+    // Dump meta data into MongoDB
     let createMessage = await Messages.create(metaData);
-    console.log(createMessage);
 
     const payload = [{ uniqueID, vector }];
 
+    // Query Pinecone for matching info
     const pineconeResults = await queryIndex(vector);
 
     const ids = pineconeResults.matches.map((match) => match.id);
     const mongoQuery = await Messages.find({ _id: { $in: ids } });
+    const messages = mongoQuery.map((item) => item.message);
+    console.log(messages);
 
-    console.log(`Querying MongoDB for matching IDs: ${mongoQuery}`);
-
-    const prompt = `Previous conversation: ${mongoQuery}\nPrevious question from User: ${previousQuestion}\nPrevious response from ${
+    // Inject the mongoQuery into the prompt
+    const prompt = `Previous conversation: ${messages}\nPrevious question from User: ${previousQuestion}\nPrevious response from ${
         personas[req.body.persona].name
     }: ${previousResponse}User:${req.body.promptQuestion}`;
 
@@ -49,17 +50,21 @@ const sendQuestion = async (req, res) => {
         personas[req.body.persona].prompt
     );
 
+    // Get vectors from Ada-002
     vector = await getEmbeddings(data);
     uniqueID = uuidv4();
+
     metaData = {
         _id: uniqueID,
         speaker: personas[req.body.persona].name,
         message: data,
     };
+    // Dump meta data into MongoDB
     createMessage = await Messages.create(metaData);
 
     payload.push({ uniqueID, vector });
 
+    // Send the vectors to Pinecone DB
     const uploadVector = await upsert(payload);
 
     res.status(200).json({ message: data, profilePic: personas[req.body.persona].profilePic, usage: usage });
