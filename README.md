@@ -67,6 +67,6 @@ set in the .env
 
 # Docker:
 
-I created a docker image, the repo can be found here [Dockerhub Repo](https://hub.docker.com/repository/docker/jas313/gpt-chatbot/general) with instructions and a docker-compose example.
+I created a docker image, the repo can be found here [Dockerhub Repo](https://hub.docker.com/r/jas313/gpt-chatbot) with instructions and a docker-compose example.
 
 ![](images/fiona.png)
