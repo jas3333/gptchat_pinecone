@@ -29,13 +29,14 @@ const sendQuestion = async (req, res) => {
 
     // Query Pinecone for matching info
     const pineconeResults = await queryIndex(vector);
+    console.log(pineconeResults);
 
     const ids = pineconeResults.matches.map((match) => match.id);
     const mongoQuery = await Messages.find({ _id: { $in: ids } });
     const messages = mongoQuery.map((item) => item.message);
 
     // Inject the mongoQuery into the prompt
-    const prompt = `Previous conversation: ${messages}\nPrevious question from User: ${previousQuestion}\nPrevious response from ${
+    const prompt = `Context: ${messages}\nPrevious question from User: ${previousQuestion}\nPrevious response from ${
         personas[req.body.persona].name
     }: ${previousResponse}User:${req.body.promptQuestion}`;
     console.log(prompt);
