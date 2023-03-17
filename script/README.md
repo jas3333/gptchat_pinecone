@@ -27,3 +27,5 @@ mongo_collection=mongodb collection name
 #### How to Use:
 
 Just drop your PDFs into the docs folder and then run the script, it should show up as an option in the menu.
+Keep in mind splitting the PDF does take awhile and it may look like nothing is happening. It can take several
+minutes to complete.
