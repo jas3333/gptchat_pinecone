@@ -12,17 +12,6 @@ from datetime import datetime
 
 load_dotenv()
 
-# Create a .env with these variables change them
-#
-# OPEN_AI_KEY=openAI key
-# PINECONE_API=pinecone API key
-# MONGODB=mongodb://localhost:1:27017 --- Your connection to Mongodb
-# PINECONE_ENV=us-east1-gcp --- Environment found on Pinecone site
-# pinecone_index=name of your index
-# mongo_db_name=mongo database name
-# mongo_collection=mongodb collection name
-
-
 open_ai_key = os.getenv("OPEN_AI_KEY")
 pinecone_api = os.getenv("PINECONE_API")
 pinecone_environment = os.getenv("PINECONE_ENV")
