@@ -5,12 +5,8 @@ import { queryIndex, upsert } from './../utils/pinecone.js';
 import { v4 as uuidv4 } from 'uuid';
 
 const sendQuestion = async (req, res) => {
-    let previousQuestion = '';
-    let previousResponse = '';
-    if (req.body.conversation.length > 1) {
-        previousQuestion = req.body.conversation[req.body.conversation.length - 1].promptQuestion;
-        previousResponse = req.body.conversation[req.body.conversation.length - 1].botResponse;
-    }
+    const conversation = req.body.conversation.length >= 2 ? req.body.conversation.slice(-2) : req.body.conversation;
+    const conversationInjection = conversation.map((item) => `${item.promptQuestion}\n${item.botResponse}`);
 
     let vector = await getEmbeddings(req.body.promptQuestion);
 
@@ -22,6 +18,8 @@ const sendQuestion = async (req, res) => {
         message: req.body.promptQuestion,
     };
 
+    console.log(metaData);
+
     // Dump meta data into MongoDB
     let createMessage = await Messages.create(metaData);
 
@@ -31,14 +29,13 @@ const sendQuestion = async (req, res) => {
     const pineconeResults = await queryIndex(vector);
     console.log(pineconeResults);
 
-    const ids = pineconeResults.matches.map((match) => match.id);
+    const ids = pineconeResults.matches.filter((match) => match.score >= 0.85).map((match) => match.id);
+
     const mongoQuery = await Messages.find({ _id: { $in: ids } });
     const messages = mongoQuery.map((item) => item.message);
 
     // Inject the mongoQuery into the prompt
-    const prompt = `Context: ${messages}\nPrevious question from User: ${previousQuestion}\nPrevious response from ${
-        personas[req.body.persona].name
-    }: ${previousResponse}User:${req.body.promptQuestion}`;
+    const prompt = `Context: ${messages}\n${conversationInjection} User: ${req.body.promptQuestion}`;
     console.log(prompt);
 
     const { data, usage } = await callGPT(

@@ -38,6 +38,7 @@ pre {
     background: rgb(17, 27, 39);
     border-radius: 10px;
     padding: 10px;
+    overflow: scroll;
 }
 
 li {
