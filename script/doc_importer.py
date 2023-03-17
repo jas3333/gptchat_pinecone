@@ -1,4 +1,5 @@
 import os
+import sys
 import re
 import pymongo
 import requests
@@ -40,7 +41,7 @@ def get_selected_file():
                 print(f"[{index + 1}]: {files[index]}  ")
         else:
             print("No files found.")
-            break
+            sys.exit()
 
         print("--------------------------------------------------")
         user_input = input(
@@ -48,7 +49,7 @@ def get_selected_file():
 
         try:
             if user_input.lower() == "q":
-                break
+                sys.exit()
             elif files[int(user_input) - 1]:
                 return files[int(user_input) - 1]
             elif int(user_input) > len(files):
