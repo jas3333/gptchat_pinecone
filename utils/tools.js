@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Messages from './../models/messages.js';
 
 const getEmbeddings = async (content) => {
     const options = {
@@ -44,4 +45,19 @@ const callGPT = async (prompt, temperature, top_p, maxTokens, presencePenalty, f
     return { usage, data };
 };
 
-export { getEmbeddings, callGPT };
+const getMessages = async (pineconeResults) => {
+    let ids = [];
+    let messages = [];
+
+    try {
+        ids = pineconeResults.matches.filter((match) => match.score >= 0.85).map((match) => match.id);
+        const mongoQuery = await Messages.find({ _id: { $in: ids } });
+        messages = mongoQuery.map((item) => item.message);
+    } catch (error) {
+        console.log(error);
+    }
+
+    return messages;
+};
+
+export { getEmbeddings, callGPT, getMessages };

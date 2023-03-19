@@ -1,11 +1,12 @@
 import Messages from './../models/messages.js';
 import personas from './../data/personas.js';
-import { getEmbeddings, callGPT } from './../utils/tools.js';
+import { getEmbeddings, callGPT, getMessages } from './../utils/tools.js';
 import { queryIndex, upsert } from './../utils/pinecone.js';
 import { v4 as uuidv4 } from 'uuid';
 
 const sendQuestion = async (req, res) => {
-    const conversation = req.body.conversation.length >= 2 ? req.body.conversation.slice(-2) : req.body.conversation;
+    // Sets conversation length
+    const conversation = req.body.conversation.length >= 3 ? req.body.conversation.slice(-3) : req.body.conversation;
     const conversationInjection = conversation.map((item) => `${item.promptQuestion}\n${item.botResponse}`);
 
     let vector = await getEmbeddings(req.body.promptQuestion);
@@ -29,10 +30,12 @@ const sendQuestion = async (req, res) => {
     const pineconeResults = await queryIndex(vector);
     console.log(pineconeResults);
 
-    const ids = pineconeResults.matches.filter((match) => match.score >= 0.85).map((match) => match.id);
+    const messages = getMessages(pineconeResults);
 
-    const mongoQuery = await Messages.find({ _id: { $in: ids } });
-    const messages = mongoQuery.map((item) => item.message);
+    // ids = pineconeResults.matches.filter((match) => match.score >= 0.85).map((match) => match.id);
+    //
+    // const mongoQuery = await Messages.find({ _id: { $in: ids } });
+    // const messages = mongoQuery.map((item) => item.message);
 
     // Inject the mongoQuery into the prompt
     const prompt = `Context: ${messages}\n${conversationInjection} User: ${req.body.promptQuestion}`;
