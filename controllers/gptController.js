@@ -30,7 +30,7 @@ const sendQuestion = async (req, res) => {
     const pineconeResults = await queryIndex(vector);
     console.log(pineconeResults);
 
-    const messages = getMessages(pineconeResults);
+    const messages = await getMessages(pineconeResults);
 
     // ids = pineconeResults.matches.filter((match) => match.score >= 0.85).map((match) => match.id);
     //
