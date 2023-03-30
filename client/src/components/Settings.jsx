@@ -1,8 +1,8 @@
 import { memo } from 'react';
 const Settings = memo(({ botSettings, settingsChange, reset }) => {
     return (
-        <div className='settings-modal'>
-            <form className=''>
+        <div className='settings-container'>
+            <form className='settings'>
                 <div className='settings'>
                     <label htmlFor='options'>Persona: </label>
 
@@ -63,8 +63,6 @@ const Settings = memo(({ botSettings, settingsChange, reset }) => {
                         onChange={settingsChange}
                         title='Adjust the top_p parameter to control the diversity of generated text. A higher value results in more diverse text, while a lower value results in more predictable text.'
                     />
-                </div>
-                <div className='settings'>
                     <label className='value-label' htmlFor='tokens'>
                         Presence Penalty: {botSettings.presencePenalty}
                     </label>

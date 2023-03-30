@@ -9,7 +9,7 @@ function App() {
     const [promptQuestion, setPromptQuestion] = useState('');
     const [conversation, setConversation] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const [showModal, setShowModal] = useState(false);
+    const [showModal, setShowModal] = useState(true);
     const [summaryCounter, setSummaryCounter] = useState(0);
 
     const [botSettings, setBotSettings] = useState({
@@ -105,8 +105,8 @@ function App() {
     };
 
     return (
-        <div>
-            {showModal && <Settings {...settings} />}
+        <div className='container'>
+            <Settings {...settings} />
             <MemoChatbox {...chatboxProps} />
         </div>
     );

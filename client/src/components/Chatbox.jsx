@@ -21,13 +21,14 @@ const Chatbox = ({
     }, [conversation]);
 
     return (
-        <div className='chatbox' ref={containerRef}>
-            {conversation.map((item, index) => {
-                return <MemoDisplayChat key={index} item={item} />;
-            })}
+        <div className='container-col'>
+            <div className='chatbox' ref={containerRef}>
+                {conversation.map((item, index) => {
+                    return <MemoDisplayChat key={index} item={item} />;
+                })}
+            </div>
             <div className='chat-input'>
                 <div className='user-input'>
-                    <FaTools className='tools' onClick={() => setShowModal(!showModal)} />
                     {isLoading && <div className='loading-indicator'></div>}
                     <InputBox
                         handleSubmit={handleSubmit}
