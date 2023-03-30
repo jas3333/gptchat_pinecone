@@ -26,7 +26,7 @@ const Settings = memo(({ botSettings, settingsChange, reset }) => {
                         type='range'
                         min='50'
                         max='2050'
-                        step='10'
+                        step='1'
                         name='tokens'
                         value={botSettings.tokens}
                         onChange={settingsChange}

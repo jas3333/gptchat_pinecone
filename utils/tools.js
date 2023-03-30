@@ -24,6 +24,9 @@ const callGPT = async (prompt, temperature, top_p, maxTokens, presencePenalty, f
     const options = {
         headers: { Authorization: `Bearer ${process.env.OPEN_AI_KEY}`, 'Content-Type': 'application/json' },
     };
+
+    console.log(prompt);
+    console.log(persona);
     const promptData = {
         model: 'gpt-3.5-turbo',
         messages: [
@@ -38,11 +41,16 @@ const callGPT = async (prompt, temperature, top_p, maxTokens, presencePenalty, f
         frequency_penalty: frequencyPenalty,
     };
 
-    const response = await axios.post('https://api.openai.com/v1/chat/completions', promptData, options);
-    const data = response.data.choices[0].message.content;
-    const usage = response.data.usage.total_tokens;
+    try {
+        const response = await axios.post('https://api.openai.com/v1/chat/completions', promptData, options);
+        const data = response.data.choices[0].message.content;
+        const usage = response.data.usage.total_tokens;
+        const returnedData = { data, usage };
 
-    return { usage, data };
+        return returnedData;
+    } catch (error) {
+        console.log(error.response.data.error);
+    }
 };
 
 const getMessages = async (pineconeResults) => {

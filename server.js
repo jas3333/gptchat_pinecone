@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import { fileURLToPath } from 'url';
 import path, { dirname } from 'path';
 import connectDB from './utils/connectDB.js';
+import cors from 'cors';
 
 dotenv.config();
 
@@ -14,6 +15,7 @@ import gptRouter from './router/gptRouter.js';
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 app.use(express.static(path.resolve(__dirname, './client/build')));
 const PORT = process.env.PORT || 4005;
 

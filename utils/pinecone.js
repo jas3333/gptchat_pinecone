@@ -38,8 +38,8 @@ const upsert = async (payload) => {
         },
         data: {
             vectors: [
-                { values: [payload[0].vector], id: payload[0].uniqueID },
-                { values: [payload[1].vector], id: payload[1].uniqueID },
+                { values: payload.vector, id: payload.uniqueID },
+                // { values: [payload[1].vector], id: payload[1].uniqueID },
             ],
         },
     };

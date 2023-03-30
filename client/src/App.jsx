@@ -9,15 +9,16 @@ function App() {
     const [promptQuestion, setPromptQuestion] = useState('');
     const [conversation, setConversation] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const [showModal, setShowModal] = useState(true);
+    const [showModal, setShowModal] = useState(false);
+    const [summaryCounter, setSummaryCounter] = useState(0);
 
     const [botSettings, setBotSettings] = useState({
         persona: 0,
-        tokens: 500,
-        temperature: 0.5,
+        tokens: 2050,
+        temperature: 0,
         presencePenalty: 0,
         frequencyPenalty: 0,
-        top_p: 0.1,
+        top_p: 0.7,
     });
 
     const settingsChange = (event) => {
@@ -27,12 +28,24 @@ function App() {
         }));
     };
 
+    const summary = async () => {
+        const summaryData = {
+            conversation: conversation.slice(-5),
+            ...botSettings,
+        };
+        try {
+            const response = await axios.post('http://localhost:4005/api/v1/gpt/summary', summaryData);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     const handleSubmit = async (event, promptQuestion) => {
         event.preventDefault();
 
         try {
             setIsLoading(true);
-            const response = await axios.post('/api/v1/gpt', {
+            const response = await axios.post('http://localhost:4005/api/v1/gpt', {
                 promptQuestion,
                 ...botSettings,
                 conversation: [...conversation],
@@ -51,8 +64,15 @@ function App() {
         } catch (error) {
             console.log(error);
         }
+
         setIsLoading(false);
         setPromptQuestion('');
+        if (summaryCounter === 5) {
+            summary();
+            setSummaryCounter(0);
+        } else {
+            setSummaryCounter(summaryCounter + 1);
+        }
     };
 
     const reset = async () => {
