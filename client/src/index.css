@@ -5,14 +5,13 @@
     box-sizing: border-box;
     text-decoration: none;
 }
-
 body {
     background: #191c20;
     font-family: 'Noto Serif', serif;
     font-weight: 400;
     font-size: 1em;
+    color: #fff;
 }
-
 select {
     font-size: 16px;
     background: #23272b;
@@ -21,114 +20,61 @@ select {
     border-radius: 10px;
     margin-left: 5px;
 }
-
 p {
     margin: 10px 0;
     line-height: 1.3em;
 }
-
 code {
     background: rgb(17, 27, 39);
     /* color: #90cdff; */
     padding: 1px 10px;
     border-radius: 5px;
 }
-
 pre {
     background: rgb(17, 27, 39);
     border-radius: 10px;
     padding: 10px;
     overflow: scroll;
 }
-
 li {
     margin: 9px 0 9px 15px;
 }
-
 .settings p {
     margin: 20px 0;
 }
 
-.input-chat {
-    margin: 0 auto;
-    width: 100%;
-    max-width: 700px;
-    padding: 15px 20px;
-    border-radius: 15px;
-    border: none;
-    outline: none;
-    font-size: 16px;
-}
-
-.flex-box {
-    display: flex;
-    margin-top: 20px;
-}
-.profile-pic {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    margin-right: 20px;
-    margin-top: 20px;
-    box-shadow: 5px 5px 15px black;
-    transition: ease all 1s;
-}
-
-.profile-pic:hover {
-    transform: scale(1.25);
-}
-
+/* Button Style */
 .btn {
     background: transparent;
     border: 1px #fff solid;
     border-radius: 10px;
     transition: ease all 0.5s;
-    width: 80px;
-    height: 30px;
+    width: 90px;
+    height: 40px;
     color: #fff;
 }
 .btn:hover {
-    background: #191c20;
+    background: #fff;
+    color: #191c20;
 }
 .btn:active {
     transform: scale(0.98);
 }
 
-.user-input {
-    position: relative;
-    bottom: 0;
-    max-width: 800px;
-    left: 70%;
-    transform: translateX(-50%);
+.border {
+    border: solid 2px red;
 }
 
-.container {
-    display: flex;
+/* Style */
+.tokens {
+    margin-left: 700px;
+    font-size: 0.8em;
+    font-style: italic;
+    color: #9ea0a7;
 }
-.container-col {
-    display: flex;
-    flex-direction: column;
-    background: linear-gradient(to bottom, #20252d, #656d7b);
-    width: 100vw;
-}
-
-.chat-input {
-    width: 80%;
-    padding: 10px;
-}
-
-.chatbox {
-    margin: 0 auto;
-    padding: 20px;
-    width: 1100px;
-    height: 1145px;
-    overflow-y: scroll;
-}
-
 .chatbox::-webkit-scrollbar {
     width: 0;
 }
-
 .chat-bubble {
     background-color: #4d5460;
     color: #fff;
@@ -139,7 +85,6 @@ li {
     margin-top: 30px;
     box-shadow: 10px 10px 30px black;
 }
-
 .user-chat {
     font-weight: 300;
     border-radius: 5px;
@@ -151,36 +96,57 @@ li {
     box-shadow: 5px 5px 20px #0e0e0e;
     color: #fff;
 }
-
-.loading-indicator {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
+.profile-pic {
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
-    background-color: #ccc;
-    animation: pulse 2s ease-in-out infinite;
-    position: absolute;
-    top: 30%;
-    right: 70px;
-    transform: translateY(-50%);
+    margin-right: 20px;
+    margin-top: 20px;
+    box-shadow: 5px 5px 15px black;
+    transition: ease all 1s;
 }
-
-.settings-modal {
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(3px);
-    transform: translateX(-55%);
-    border: solid 1px #fff;
+.profile-pic:hover {
+    transform: scale(1.25);
+}
+.input-chat {
+    margin: 0 auto;
+    width: 1000px;
+    padding: 15px 20px;
     border-radius: 15px;
-    position: absolute;
+    border: none;
+    outline: none;
+    font-size: 16px;
+}
+.semantic-search {
+    margin: 10px 0;
+    width: 350px;
     padding: 10px;
-    height: 150px;
-    z-index: 1000;
-    width: 1200px;
-    color: #fff;
-    left: 52%;
-    top: 80%;
+    border-radius: 10px;
+    border: none;
+    outline: none;
 }
 
+/* Containers */
+.container-flex {
+    display: flex;
+    padding: 10px;
+    justify-content: center;
+}
+.flex-box {
+    display: flex;
+}
+.flex-box-col {
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+}
+.settings {
+    padding: 20px 10px;
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+}
 .settings-container {
     background: #191c20;
     color: #fff;
@@ -189,45 +155,70 @@ li {
     width: 400px;
     height: 100vh;
 }
-.settings {
+.chatbox {
+    padding: 20px;
+    margin: 10px 50px;
+    width: 1100px;
+    height: 1145px;
+    overflow-y: scroll;
+}
+.chat-input {
     padding: 10px;
     display: flex;
+    margin: 0 20px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.container {
+    display: flex;
+    width: 100vw;
+}
+.container-col {
+    display: flex;
     flex-direction: column;
+    align-items: center;
+    background: linear-gradient(to bottom, #20252d, #656d7b);
 }
-
-.slider {
-    width: 100px;
-    margin-left: 20px;
+.user-input {
+    display: flex;
+    align-items: center;
+    width: 90%;
+    margin-left: 50px;
 }
-
-.tools {
-    display: inline-block;
-    color: #fff;
-    position: absolute;
-    font-size: 24px;
-    top: 48%;
-    left: -40px;
-    transform: translateY(-50%);
+.query-text {
+    padding: 15px;
+    max-width: 380px;
     cursor: pointer;
 }
 
-/* Alignment */
-.value-label {
-    margin: 20px 0;
+/* Decoration */
+.underline {
+    background: #fff;
+    height: 1px;
+    width: 100%;
+}
+.selected {
+    border-radius: 5px;
+    border: solid 2px #fff;
 }
 
-.width-40 {
+/* Misc */
+.overflow-scroll {
+    overflow-y: scroll;
+    height: 100vh;
+}
+
+/* Load Indicators */
+.loading-indicator {
+    display: inline-block;
+    margin: 0px 10px;
     width: 20px;
-    margin-left: 10px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #ccc;
+    animation: pulse 2s ease-in-out infinite;
 }
-
-.tokens {
-    margin-left: 700px;
-    font-size: 0.8em;
-    font-style: italic;
-    color: #9ea0a7;
-}
-
 @keyframes pulse {
     0% {
         transform: scale(0.8);
@@ -241,6 +232,25 @@ li {
         transform: scale(0.8);
         opacity: 0.5;
     }
+}
+
+/* Alignment/Sizing */
+.value-label {
+    margin: 20px 0;
+}
+.slider {
+    width: 100px;
+    margin-left: 20px;
+}
+.width-40 {
+    width: 20px;
+    margin-left: 10px;
+}
+.width-max {
+    width: 100%;
+}
+.center {
+    margin: 0 auto;
 }
 
 input[type='range'] {

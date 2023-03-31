@@ -1,25 +1,22 @@
 import { memo } from 'react';
+import { personas } from './../data/settings';
+
 const Settings = memo(({ botSettings, settingsChange, reset }) => {
     return (
         <div className='settings-container'>
-            <form className='settings'>
+            <form className=''>
                 <div className='settings'>
                     <label htmlFor='options'>Persona: </label>
 
                     <select id='options' onChange={settingsChange} name='persona' value={botSettings.persona}>
-                        <option value='0'>Rhey - Programming/Network Expert</option>
-                        <option value='1'>Rick - Rick and Morty</option>
-                        <option value='2'>Eva - World Renown Journalist</option>
-                        <option value='3'>Reef - World Class Surfer</option>
-                        <option value='4'>Ugg - The Caveman</option>
-                        <option value='5'>AI Assistant - Default ChatGPT</option>
-                        <option value='6'>Fiona - Novelist</option>
-                        <option value='7'>Jack - Comedian</option>
+                        {personas.map((name, index) => (
+                            <option value={`${index}`}>{name}</option>
+                        ))}
                     </select>
+
                     <label className='value-label' htmlFor='tokens'>
                         Tokens: {botSettings.tokens}
                     </label>
-
                     <input
                         className='slider'
                         id='tokens'
@@ -97,7 +94,7 @@ const Settings = memo(({ botSettings, settingsChange, reset }) => {
                     />
                 </div>
             </form>
-            <div className='settings'>
+            <div className='container-flex'>
                 <button
                     onClick={reset}
                     className='btn'

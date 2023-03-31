@@ -2,6 +2,7 @@ import { useEffect, useState, memo } from 'react';
 import axios from 'axios';
 import Chatbox from './components/Chatbox';
 import Settings from './components/Settings';
+import PineBox from './components/PineBox';
 
 const MemoChatbox = memo(Chatbox);
 
@@ -108,6 +109,7 @@ function App() {
         <div className='container'>
             <Settings {...settings} />
             <MemoChatbox {...chatboxProps} />
+            <PineBox />
         </div>
     );
 }
