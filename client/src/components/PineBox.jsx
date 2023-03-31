@@ -1,6 +1,10 @@
 import axios from 'axios';
-import { useState } from 'react';
-const PineBox = () => {
+import { useEffect, useState, memo } from 'react';
+import DisplaySemantic from './DisplaySemantic';
+
+const MemoDisplaySemantic = memo(DisplaySemantic);
+
+const PineBox = ({ injectVector }) => {
     const [query, setQuery] = useState('');
     const [pineQuery, setPineQuery] = useState(['']);
     const [selectedItems, setSelectedItems] = useState([]);
@@ -18,7 +22,7 @@ const PineBox = () => {
 
         const newQuery = { query };
         try {
-            const response = await axios.post('http://localhost:4005/api/v1/pine', newQuery);
+            const response = await axios.post('/api/v1/pine', newQuery);
             const data = response.data.message;
             setPineQuery(data);
         } catch (error) {
@@ -26,12 +30,15 @@ const PineBox = () => {
         }
     };
 
+    useEffect(() => {
+        injectVector(selectedItems);
+    }, [selectedItems]);
+
     return (
-        <div className='flex-box-col width-max overflow-scroll'>
+        <div className='flex-box-col width-max overflow-scroll '>
             <div className='flex-box center '>
                 <h1>Semantic Search & Injection</h1>
             </div>
-            <div className='underline'></div>
             <form className='flex-box center' onSubmit={onSubmit}>
                 <input
                     placeholder='Search'
@@ -40,15 +47,17 @@ const PineBox = () => {
                     onChange={(event) => setQuery(event.target.value)}
                 />
             </form>
-            {pineQuery.map((item, index) => (
-                <div
-                    className={`query-text center ${selectedItems.includes(item) ? 'selected' : ''}`}
-                    key={index}
-                    onClick={() => handleClick(item)}
-                >
-                    <p>{item}</p>
-                </div>
-            ))}
+            <div>
+                {pineQuery.map((item, index) => (
+                    <div
+                        className={`query-text center ${selectedItems.includes(item) ? 'selected' : ''}`}
+                        key={index}
+                        onClick={() => handleClick(item)}
+                    >
+                        <MemoDisplaySemantic item={item} />
+                    </div>
+                ))}
+            </div>
         </div>
     );
 };

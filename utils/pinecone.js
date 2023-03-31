@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const queryIndex = async (vectors) => {
+const queryIndex = async (vectors, topK) => {
     const options = {
         method: 'POST',
         url: process.env.QUERY_URL,
@@ -10,7 +10,7 @@ const queryIndex = async (vectors) => {
             'Api-Key': process.env.PINECONE_API,
         },
         data: {
-            topK: Number(process.env.topK),
+            topK: topK,
             vector: vectors,
             includeValues: 'false',
             includeMetadata: 'false',

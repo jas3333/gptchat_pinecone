@@ -8,6 +8,8 @@ const sendQuestion = async (req, res) => {
     // Sets conversation length
     const conversation = req.body.conversation.length >= 3 ? req.body.conversation.slice(-3) : req.body.conversation;
     const conversationInjection = conversation.map((item) => `${item.promptQuestion}\n${item.botResponse}`);
+    const messageInjection = req.body.messagesToInject;
+    console.log(messageInjection);
 
     let vector = await getEmbeddings(req.body.promptQuestion);
 
@@ -25,14 +27,13 @@ const sendQuestion = async (req, res) => {
     // const payload = [{ uniqueID, vector }];
 
     // Query Pinecone for matching info
-    const pineconeResults = await queryIndex(vector);
-    console.log(pineconeResults);
+    const pineconeResults = await queryIndex(vector, 3);
 
-    const messages = await getMessages(pineconeResults);
+    const messages = await getMessages(pineconeResults, 0.9);
+    messages.push(messageInjection);
 
     // Inject the mongoQuery into the prompt
     const prompt = `Context: ${messages}\n${conversationInjection} User: ${req.body.promptQuestion}`;
-    console.log(prompt);
 
     const { data, usage } = await callGPT(
         prompt,

@@ -5,6 +5,7 @@ import Settings from './components/Settings';
 import PineBox from './components/PineBox';
 
 const MemoChatbox = memo(Chatbox);
+const MemoPineBox = memo(PineBox);
 
 function App() {
     const [promptQuestion, setPromptQuestion] = useState('');
@@ -12,6 +13,7 @@ function App() {
     const [isLoading, setIsLoading] = useState(false);
     const [showModal, setShowModal] = useState(true);
     const [summaryCounter, setSummaryCounter] = useState(0);
+    const [injection, setInjection] = useState([]);
 
     const [botSettings, setBotSettings] = useState({
         persona: 0,
@@ -29,13 +31,18 @@ function App() {
         }));
     };
 
+    const injectVector = (messages) => {
+        setInjection(messages);
+        console.log(messages);
+    };
+
     const summary = async () => {
         const summaryData = {
             conversation: conversation.slice(-5),
             ...botSettings,
         };
         try {
-            const response = await axios.post('http://localhost:4005/api/v1/gpt/summary', summaryData);
+            const response = await axios.post('/api/v1/gpt/summary', summaryData);
         } catch (error) {
             console.log(error);
         }
@@ -46,10 +53,11 @@ function App() {
 
         try {
             setIsLoading(true);
-            const response = await axios.post('http://localhost:4005/api/v1/gpt', {
+            const response = await axios.post('/api/v1/gpt', {
                 promptQuestion,
                 ...botSettings,
                 conversation: [...conversation],
+                messagesToInject: injection,
             });
             const newChat = {
                 promptQuestion,
@@ -109,7 +117,7 @@ function App() {
         <div className='container'>
             <Settings {...settings} />
             <MemoChatbox {...chatboxProps} />
-            <PineBox />
+            <MemoPineBox injectVector={injectVector} />
         </div>
     );
 }

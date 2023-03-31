@@ -188,16 +188,16 @@ li {
 }
 .query-text {
     padding: 15px;
-    max-width: 380px;
+    max-width: 700px;
+    width: 700px;
+    margin: 20px 0;
     cursor: pointer;
+    box-shadow: 3px 3px 15px black;
+    display: flex;
+    overflow-y: scroll;
 }
 
 /* Decoration */
-.underline {
-    background: #fff;
-    height: 1px;
-    width: 100%;
-}
 .selected {
     border-radius: 5px;
     border: solid 2px #fff;
@@ -250,7 +250,8 @@ li {
     width: 100%;
 }
 .center {
-    margin: 0 auto;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 input[type='range'] {

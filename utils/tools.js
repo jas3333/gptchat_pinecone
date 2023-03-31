@@ -24,9 +24,6 @@ const callGPT = async (prompt, temperature, top_p, maxTokens, presencePenalty, f
     const options = {
         headers: { Authorization: `Bearer ${process.env.OPEN_AI_KEY}`, 'Content-Type': 'application/json' },
     };
-
-    console.log(prompt);
-    console.log(persona);
     const promptData = {
         model: 'gpt-3.5-turbo',
         messages: [
@@ -53,12 +50,12 @@ const callGPT = async (prompt, temperature, top_p, maxTokens, presencePenalty, f
     }
 };
 
-const getMessages = async (pineconeResults) => {
+const getMessages = async (pineconeResults, score) => {
     let ids = [];
     let messages = [];
 
     try {
-        ids = pineconeResults.matches.filter((match) => match.score >= 0.8).map((match) => match.id);
+        ids = pineconeResults.matches.filter((match) => match.score >= score).map((match) => match.id);
         const mongoQuery = await Messages.find({ _id: { $in: ids } });
         messages = mongoQuery.map((item) => item.message);
     } catch (error) {
