@@ -1,10 +1,8 @@
 {
   "files": {
-    "main.css": "/static/css/main.331e30c8.css",
-    "main.js": "/static/js/main.2dfe6af5.js",
+    "main.css": "/static/css/main.4f3ee49e.css",
+    "main.js": "/static/js/main.0f961bac.js",
     "static/media/cyberpunk.png": "/static/media/cyberpunk.9bb9388d57611277ee50.png",
-    "static/media/cyberpunk5.png": "/static/media/cyberpunk5.700e82ecdd562e53b584.png",
-    "static/media/cyberpunk4.png": "/static/media/cyberpunk4.51bdb8f0067cc3e2429e.png",
     "static/media/rick.png": "/static/media/rick.4a587c4f26055533d607.png",
     "static/media/fiona.png": "/static/media/fiona.aa32687c695387596fa6.png",
     "static/media/ai_assistant.png": "/static/media/ai_assistant.25e6e574734ab90fddbf.png",
@@ -12,13 +10,12 @@
     "static/media/journalist.png": "/static/media/journalist.293aa5afce7b15fa2395.png",
     "static/media/caveman.png": "/static/media/caveman.d3acec631d7aa1140922.png",
     "static/media/jack.png": "/static/media/jack.ef1af5c50c4ac2f1c598.png",
-    "static/media/cyberpunk.jpg": "/static/media/cyberpunk.1ccc75de0436b9497721.jpg",
     "index.html": "/index.html",
-    "main.331e30c8.css.map": "/static/css/main.331e30c8.css.map",
-    "main.2dfe6af5.js.map": "/static/js/main.2dfe6af5.js.map"
+    "main.4f3ee49e.css.map": "/static/css/main.4f3ee49e.css.map",
+    "main.0f961bac.js.map": "/static/js/main.0f961bac.js.map"
   },
   "entrypoints": [
-    "static/css/main.331e30c8.css",
-    "static/js/main.2dfe6af5.js"
+    "static/css/main.4f3ee49e.css",
+    "static/js/main.0f961bac.js"
   ]
 }

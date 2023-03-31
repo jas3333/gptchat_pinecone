@@ -6,7 +6,7 @@ const MemoDisplaySemantic = memo(DisplaySemantic);
 
 const PineBox = ({ injectVector }) => {
     const [query, setQuery] = useState('');
-    const [pineQuery, setPineQuery] = useState(['']);
+    const [pineQuery, setPineQuery] = useState([]);
     const [selectedItems, setSelectedItems] = useState([]);
 
     const handleClick = (item) => {
