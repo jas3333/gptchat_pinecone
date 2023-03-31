@@ -8,10 +8,12 @@ This app is an interface to OpenAI's gpt-3.5-turbo API with its own set of featu
 2. A very large memory for the AI to dig through. My previous version had a limit of
    around 10 previous conversations, while this version has a potential of a million+ thanks to
    Pinecone's vector database and OpenAI's embedding model.
+3. Added a search and inject section to manually search vector DB and inject the data into the prompt.
 
 #### Roadmap:
 
 1. Add the ability to import documents into the databases increasing the knowledge of the bots.
+2. Add ability for the user to use custom personas from the frontend.
 
 If you have a feature you would like to see implemented, open up a discussion.
 
