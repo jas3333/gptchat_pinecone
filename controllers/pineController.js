@@ -9,6 +9,8 @@ const queryPinecone = async (req, res) => {
     const pineconeResults = await queryIndex(vectors, 50);
     const messages = await getMessages(pineconeResults, 0.79);
 
+    console.log(messages);
+
     res.status(200).json({ message: messages });
 };
 
