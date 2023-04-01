@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState, memo } from 'react';
+import { MdLayersClear, MdOutlineClearAll } from 'react-icons/md';
 import DisplaySemantic from './DisplaySemantic';
 
 const MemoDisplaySemantic = memo(DisplaySemantic);
@@ -30,23 +31,36 @@ const PineBox = ({ injectVector }) => {
         }
     };
 
+    const clearSearch = () => {
+        setQuery('');
+        setPineQuery([]);
+    };
+
     useEffect(() => {
         injectVector(selectedItems);
     }, [selectedItems]);
 
     return (
         <div className='flex-box-col width-max overflow-scroll '>
-            <div className='flex-box center '>
+            <div className='flex-box center'>
                 <h1>Semantic Search & Injection</h1>
             </div>
-            <form className='flex-box center' onSubmit={onSubmit}>
+            <form className='flex-box center align' onSubmit={onSubmit}>
                 <input
                     placeholder='Search'
                     className='semantic-search'
                     value={query}
                     onChange={(event) => setQuery(event.target.value)}
                 />
+                <MdLayersClear
+                    className='icon'
+                    title='Clears selected search items.'
+                    onClick={() => setSelectedItems([])}
+                />
+                <MdOutlineClearAll className='icon' title='Clears the search' onClick={clearSearch} />
             </form>
+            <div className='underline'></div>
+
             <div>
                 {pineQuery.map((item, index) => (
                     <div

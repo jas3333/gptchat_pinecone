@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.4f3ee49e.css",
-    "main.js": "/static/js/main.0f961bac.js",
+    "main.css": "/static/css/main.a3b83845.css",
+    "main.js": "/static/js/main.39365308.js",
     "static/media/cyberpunk.png": "/static/media/cyberpunk.9bb9388d57611277ee50.png",
     "static/media/rick.png": "/static/media/rick.4a587c4f26055533d607.png",
     "static/media/fiona.png": "/static/media/fiona.aa32687c695387596fa6.png",
@@ -11,11 +11,11 @@
     "static/media/caveman.png": "/static/media/caveman.d3acec631d7aa1140922.png",
     "static/media/jack.png": "/static/media/jack.ef1af5c50c4ac2f1c598.png",
     "index.html": "/index.html",
-    "main.4f3ee49e.css.map": "/static/css/main.4f3ee49e.css.map",
-    "main.0f961bac.js.map": "/static/js/main.0f961bac.js.map"
+    "main.a3b83845.css.map": "/static/css/main.a3b83845.css.map",
+    "main.39365308.js.map": "/static/js/main.39365308.js.map"
   },
   "entrypoints": [
-    "static/css/main.4f3ee49e.css",
-    "static/js/main.0f961bac.js"
+    "static/css/main.a3b83845.css",
+    "static/js/main.39365308.js"
   ]
 }

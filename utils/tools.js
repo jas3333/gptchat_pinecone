@@ -5,7 +5,6 @@ const getEmbeddings = async (content) => {
     const options = {
         headers: { Authorization: `Bearer ${process.env.OPEN_AI_KEY}`, 'Content-Type': 'application/json' },
     };
-    console.log('calling embedding');
     const promptData = {
         input: content,
         model: 'text-embedding-ada-002',

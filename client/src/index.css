@@ -125,6 +125,12 @@ li {
     border: none;
     outline: none;
 }
+.icon {
+    font-size: 2em;
+    margin-left: 20px;
+    cursor: pointer;
+    color: #fff;
+}
 
 /* Containers */
 .container-flex {
@@ -202,6 +208,11 @@ li {
     border-radius: 5px;
     border: solid 2px #fff;
 }
+.underline {
+    background: #fff;
+    height: 1px;
+    width: 100%;
+}
 
 /* Misc */
 .overflow-scroll {
@@ -252,6 +263,9 @@ li {
 .center {
     margin-left: auto;
     margin-right: auto;
+}
+.align {
+    align-items: center;
 }
 
 input[type='range'] {

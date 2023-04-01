@@ -5,31 +5,26 @@ import { queryIndex, upsert } from './../utils/pinecone.js';
 import { v4 as uuidv4 } from 'uuid';
 
 const sendQuestion = async (req, res) => {
+    const processLog = [];
     // Sets conversation length
     const conversation = req.body.conversation.length >= 3 ? req.body.conversation.slice(-3) : req.body.conversation;
     const conversationInjection = conversation.map((item) => `${item.promptQuestion}\n${item.botResponse}`);
     const messageInjection = req.body.messagesToInject;
 
-    console.log(messageInjection);
+    processLog.push(`Message injection: ${messageInjection}`);
 
     let vector = await getEmbeddings(req.body.promptQuestion);
     let uniqueID = uuidv4();
 
-    // let metaData = {
-    //     _id: uniqueID,
-    //     speaker: 'USER',
-    //     message: req.body.promptQuestion,
-    // };
-
-    // Dump meta data into MongoDB
-    // let createMessage = await Messages.create(metaData);
-
-    // const payload = [{ uniqueID, vector }];
-
     // Query Pinecone for matching info
     const pineconeResults = await queryIndex(vector, 3);
 
+    processLog.push(`Pinecone results: ${pineconeResults}`);
+
     const messages = await getMessages(pineconeResults, 0.9);
+
+    processLog.push(`getMessages results: ${messages}`);
+
     messages.push(messageInjection);
 
     // Inject the mongoQuery into the prompt
@@ -49,20 +44,22 @@ const sendQuestion = async (req, res) => {
 
     // Get vectors from Ada-002
     vector = await getEmbeddings(mongoData);
-    // uniqueID = uuidv4();
 
     const metaData = {
         _id: uniqueID,
         speaker: personas[req.body.persona].name,
         message: mongoData,
     };
-    // // Dump meta data into MongoDB
 
     const payload = { uniqueID, vector };
 
     // // Send the vectors to Pinecone DB
     const uploadVector = await upsert(payload);
+    processLog.push(`Uploading Vectors: ${uploadVector}`);
     const createMessage = await Messages.create(metaData);
+    processLog.push(`Inserted into MongoDB: ${createMessage}`);
+
+    console.log(processLog.join('\n'));
 
     res.status(200).json({ message: data, profilePic: personas[req.body.persona].profilePic, usage: usage });
 };
