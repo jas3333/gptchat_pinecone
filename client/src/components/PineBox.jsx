@@ -23,12 +23,17 @@ const PineBox = ({ injectVector }) => {
 
         const newQuery = { query };
         try {
-            const response = await axios.post('/api/v1/pine', newQuery);
+            const response = await axios.post('http://localhost:4005/api/v1/pine', newQuery);
             const data = response.data.message;
             setPineQuery(data);
         } catch (error) {
             console.log(error);
         }
+    };
+
+    const handleChange = async (event) => {
+        setQuery(event.target.value);
+        await onSubmit(event);
     };
 
     const clearSearch = () => {
@@ -50,7 +55,7 @@ const PineBox = ({ injectVector }) => {
                     placeholder='Search'
                     className='semantic-search'
                     value={query}
-                    onChange={(event) => setQuery(event.target.value)}
+                    onChange={(event) => handleChange(event)}
                 />
                 <MdLayersClear
                     className='icon'
