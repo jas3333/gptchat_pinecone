@@ -19,11 +19,11 @@ const sendQuestion = async (req, res) => {
     // Query Pinecone for matching info
     const pineconeResults = await queryIndex(vector, 3);
 
-    processLog.push(`Pinecone results: ${pineconeResults}`);
+    processLog.push(`Pinecone results: ${pineconeResults}\n`);
 
     const messages = await getMessages(pineconeResults, 0.9);
 
-    processLog.push(`getMessages results: ${messages}`);
+    processLog.push(`getMessages results: ${messages}\n`);
 
     messages.push(messageInjection);
 
@@ -55,9 +55,7 @@ const sendQuestion = async (req, res) => {
 
     // // Send the vectors to Pinecone DB
     const uploadVector = await upsert(payload);
-    processLog.push(`Uploading Vectors: ${uploadVector}`);
     const createMessage = await Messages.create(metaData);
-    processLog.push(`Inserted into MongoDB: ${createMessage}`);
 
     console.log(processLog.join('\n'));
 
@@ -65,6 +63,7 @@ const sendQuestion = async (req, res) => {
 };
 
 const summarize = async (req, res) => {
+    const processLog = [];
     const conversationData = req.body.conversation;
     const summaryData = conversationData.map((item) => `${item.promptQuestion}\n${item.botResponse}`);
     const prompt = `Conversation: ${summaryData}`;
@@ -80,14 +79,14 @@ const summarize = async (req, res) => {
         persona
     );
 
-    console.log(data.data);
+    processLog.push(`GPT summarize response: ${data.data}\n`);
 
     try {
         const vector = await getEmbeddings(data.data);
         const uniqueID = uuidv4();
-        console.log(vector);
+        processLog.push(`ADA Vectors: ${vector}\n`);
         const payload = { uniqueID, vector };
-        console.log(payload);
+        processLog.push(`Vector Payload: ${payload}\n`);
 
         const metaData = {
             _id: uniqueID,
@@ -95,9 +94,9 @@ const summarize = async (req, res) => {
         };
 
         const createMessage = await Messages.create(metaData);
-        console.log(`Added summary to MongoDB`);
         const uploadVector = await upsert(payload);
-        console.log(`Added payload to Pinecone`);
+
+        console.log(processLog.join('\n'));
 
         res.status(200).json({ message: data });
     } catch (error) {
