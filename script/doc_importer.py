@@ -97,15 +97,16 @@ def format_texts(filename):
 def get_embeddings(content):
     content = content.encode(encoding="ASCII", errors="ignore").decode()
     data = {"input": content, "model": "text-embedding-ada-002"}
-    try:
-        response = requests.post(
-            "https://api.openai.com/v1/embeddings", headers=headers, json=data)
-        data = response.json()
-        vector = data["data"][0]["embedding"]
-        return vector
-    except Exception as error:
-        print(f"An exception occured: {error}")
-        return None
+    while True:
+        try:
+            response = requests.post(
+                "https://api.openai.com/v1/embeddings", headers=headers, json=data)
+            data = response.json()
+            vector = data["data"][0]["embedding"]
+            return vector
+        except Exception as error:
+            print(f"An exception occured: {error}")
+            continue
 
 
 def get_file_contents(filename):
