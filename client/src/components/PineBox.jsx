@@ -31,11 +31,6 @@ const PineBox = ({ injectVector }) => {
         }
     };
 
-    const handleChange = async (event) => {
-        setQuery(event.target.value);
-        await onSubmit(event);
-    };
-
     const clearSearch = () => {
         setQuery('');
         setPineQuery([]);
@@ -55,7 +50,7 @@ const PineBox = ({ injectVector }) => {
                     placeholder='Search'
                     className='semantic-search'
                     value={query}
-                    onChange={(event) => handleChange(event)}
+                    onChange={(event) => setQuery(event.target.value)}
                 />
                 <MdLayersClear
                     className='icon'
