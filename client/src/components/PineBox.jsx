@@ -23,7 +23,7 @@ const PineBox = ({ injectVector }) => {
 
         const newQuery = { query };
         try {
-            const response = await axios.post('http://localhost:4005/api/v1/pine', newQuery);
+            const response = await axios.post('/api/v1/pine', newQuery);
             const data = response.data.message;
             setPineQuery(data);
         } catch (error) {
