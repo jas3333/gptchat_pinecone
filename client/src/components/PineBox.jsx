@@ -19,7 +19,6 @@ const PineBox = ({ injectVector }) => {
 
     const onSubmit = async (event) => {
         event.preventDefault();
-        setSelectedItems([]);
 
         const newQuery = { query };
         try {
