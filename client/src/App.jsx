@@ -17,6 +17,7 @@ function App() {
 
     const [botSettings, setBotSettings] = useState({
         persona: 0,
+        customPersona: '',
         tokens: 2050,
         temperature: 0,
         presencePenalty: 0,
@@ -33,7 +34,6 @@ function App() {
 
     const injectVector = (messages) => {
         setInjection(messages);
-        console.log(messages);
     };
 
     const summary = async () => {

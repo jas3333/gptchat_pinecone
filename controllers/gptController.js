@@ -6,10 +6,20 @@ import { v4 as uuidv4 } from 'uuid';
 
 const sendQuestion = async (req, res) => {
     const processLog = [];
+
     // Sets conversation length
     const conversation = req.body.conversation.length >= 3 ? req.body.conversation.slice(-3) : req.body.conversation;
     const conversationInjection = conversation.map((item) => `${item.promptQuestion}\n${item.botResponse}`);
     const messageInjection = req.body.messagesToInject;
+    let selectedPersona = req.body.persona;
+    const customPersona = req.body.customPersona;
+    processLog.push(`Custom persona: ${customPersona}`);
+
+    if (customPersona) {
+        selectedPersona = personas.length;
+        const newPersona = { name: 'Custom', prompt: customPersona, profilePic: 'custom.png' };
+        personas.push(newPersona);
+    }
 
     processLog.push(`Message injection: ${messageInjection}`);
 
@@ -19,7 +29,7 @@ const sendQuestion = async (req, res) => {
     // Query Pinecone for matching info
     const pineconeResults = await queryIndex(vector, 3);
 
-    processLog.push(`Pinecone results: ${pineconeResults}\n`);
+    processLog.push(`Pinecone results: ${JSON.stringify(pineconeResults)}\n`);
 
     const messages = await getMessages(pineconeResults, 0.9);
 
@@ -37,7 +47,7 @@ const sendQuestion = async (req, res) => {
         Number(req.body.tokens),
         Number(req.body.presencePenalty),
         Number(req.body.frequencyPenalty),
-        personas[req.body.persona].prompt
+        personas[selectedPersona].prompt
     );
 
     const mongoData = `${req.body.promptQuestion}\n${data}`;
@@ -47,7 +57,7 @@ const sendQuestion = async (req, res) => {
 
     const metaData = {
         _id: uniqueID,
-        speaker: personas[req.body.persona].name,
+        speaker: personas[selectedPersona].name,
         message: mongoData,
     };
 
@@ -59,7 +69,7 @@ const sendQuestion = async (req, res) => {
 
     console.log(processLog.join('\n'));
 
-    res.status(200).json({ message: data, profilePic: personas[req.body.persona].profilePic, usage: usage });
+    res.status(200).json({ message: data, profilePic: personas[selectedPersona].profilePic, usage: usage });
 };
 
 const summarize = async (req, res) => {
@@ -86,7 +96,7 @@ const summarize = async (req, res) => {
         const uniqueID = uuidv4();
         processLog.push(`ADA Vectors: ${vector}\n`);
         const payload = { uniqueID, vector };
-        processLog.push(`Vector Payload: ${payload}\n`);
+        processLog.push(`Vector Payload: ${JSON.stringify(payload)}\n`);
 
         const metaData = {
             _id: uniqueID,
