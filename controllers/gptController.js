@@ -9,12 +9,12 @@ const sendQuestion = async (req, res) => {
     const conversation = req.body.conversation.length >= 3 ? req.body.conversation.slice(-3) : req.body.conversation;
     const conversationInjection = conversation.map((item) => `${item.promptQuestion}\n${item.botResponse}`);
     const messageInjection = req.body.messagesToInject;
+
     console.log(messageInjection);
 
     let vector = await getEmbeddings(req.body.promptQuestion);
+    let uniqueID = uuidv4();
 
-    // let uniqueID = uuidv4();
-    //
     // let metaData = {
     //     _id: uniqueID,
     //     speaker: 'USER',
@@ -45,22 +45,24 @@ const sendQuestion = async (req, res) => {
         personas[req.body.persona].prompt
     );
 
+    const mongoData = `${req.body.promptQuestion}\n${data}`;
+
     // Get vectors from Ada-002
-    // vector = await getEmbeddings(data);
+    vector = await getEmbeddings(mongoData);
     // uniqueID = uuidv4();
-    //
-    // metaData = {
-    //     _id: uniqueID,
-    //     speaker: personas[req.body.persona].name,
-    //     message: data,
-    // };
+
+    const metaData = {
+        _id: uniqueID,
+        speaker: personas[req.body.persona].name,
+        message: mongoData,
+    };
     // // Dump meta data into MongoDB
-    // createMessage = await Messages.create(metaData);
-    //
-    // payload.push({ uniqueID, vector });
-    //
+
+    const payload = { uniqueID, vector };
+
     // // Send the vectors to Pinecone DB
-    // const uploadVector = await upsert(payload);
+    const uploadVector = await upsert(payload);
+    const createMessage = await Messages.create(metaData);
 
     res.status(200).json({ message: data, profilePic: personas[req.body.persona].profilePic, usage: usage });
 };
