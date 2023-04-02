@@ -21,7 +21,7 @@ headers = {"Content-Type": "application/json",
            "Authorization": f"Bearer {open_ai_key}"}
 embeddings_url = "https://api.openai.com/v1/embeddings"
 mongo_db_connection = os.getenv("MONGODB")
-mongo_db_name = os.getenv("mongo_database_name")
+mongo_db_name = os.getenv("mongo_db_name")
 mongo_collection = os.getenv("mongo_collection")
 
 # Mongo DB Connection
