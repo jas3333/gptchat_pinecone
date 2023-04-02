@@ -151,15 +151,17 @@ def inject(content):
 
 filename = get_selected_file()
 
-print(f"Chunking {filename}, this could take several minutes(yes 20+ minutes) depending on size of the PDF.")
-print("Don't close until it's finished.")
+if filename:
+    print(
+        f"Chunking {filename}, this could take several minutes(yes 20+ minutes) depending on size of the PDF.")
+    print("Don't close until it's finished.")
 
-# Split the text into chunks and save to several .txt files
-splitter(filename)
-# Grabs just the text and re-writes to the same file
-format_texts(filename)
-# Store all the file contents into a list
-content = get_file_contents(filename)
-for x in range(len(content)):
-    print(f"Injecting #{x}: {content[x]}\n")
-    inject(content[x])
+    # Split the text into chunks and save to several .txt files
+    splitter(filename)
+    # Grabs just the text and re-writes to the same file
+    format_texts(filename)
+    # Store all the file contents into a list
+    content = get_file_contents(filename)
+    for x in range(len(content)):
+        print(f"Injecting #{x}: {content[x]}\n")
+        inject(content[x])
