@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState, memo } from 'react';
 import { MdLayersClear, MdOutlineClearAll } from 'react-icons/md';
+import { TiDelete } from 'react-icons/ti';
 import DisplaySemantic from './DisplaySemantic';
 
 const MemoDisplaySemantic = memo(DisplaySemantic);
@@ -25,7 +26,21 @@ const PineBox = ({ injectVector }) => {
         try {
             const response = await axios.post('/api/v1/pine', newQuery);
             const data = response.data.message;
+
             setPineQuery(data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const deleteItem = async (item) => {
+        console.log(item);
+        const id = item._id;
+        setPineQuery(pineQuery.filter((item) => item._id !== id));
+
+        try {
+            const response = await axios.delete(`/api/v1/pine/${id}`);
+            console.log(response);
         } catch (error) {
             console.log(error);
         }
@@ -63,12 +78,17 @@ const PineBox = ({ injectVector }) => {
 
             <div>
                 {pineQuery.map((item, index) => (
-                    <div
-                        className={`query-text center ${selectedItems.includes(item) ? 'selected' : ''}`}
-                        key={index}
-                        onClick={() => handleClick(item)}
-                    >
-                        <MemoDisplaySemantic item={item} />
+                    <div className={`query-text center ${selectedItems.includes(item) ? 'selected' : ''} `} key={index}>
+                        <div className='delete'>
+                            <TiDelete
+                                className='cursor'
+                                onClick={() => deleteItem(item)}
+                                title='This will remove the item from both databases.'
+                            />
+                        </div>
+                        <div onClick={() => handleClick(item)} className='cursor'>
+                            <MemoDisplaySemantic item={item.message} />
+                        </div>
                     </div>
                 ))}
             </div>

@@ -10,7 +10,8 @@ const sendQuestion = async (req, res) => {
     // Sets conversation length
     const conversation = req.body.conversation.length >= 3 ? req.body.conversation.slice(-3) : req.body.conversation;
     const conversationInjection = conversation.map((item) => `${item.promptQuestion}\n${item.botResponse}`);
-    const messageInjection = req.body.messagesToInject;
+    const messageInjection = req.body.messagesToInject.map((item) => item.message);
+    console.log(`Messages to INJECT: ${messageInjection}`);
     let selectedPersona = req.body.persona;
     const customPersona = req.body.customPersona;
     processLog.push(`Custom persona: ${customPersona}`);

@@ -56,7 +56,7 @@ const getMessages = async (pineconeResults, score) => {
     try {
         ids = pineconeResults.matches.filter((match) => match.score >= score).map((match) => match.id);
         const mongoQuery = await Messages.find({ _id: { $in: ids } });
-        messages = mongoQuery.map((item) => item.message);
+        messages = mongoQuery.map((item) => ({ message: item.message, _id: item._id }));
     } catch (error) {
         console.log(error);
     }

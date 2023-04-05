@@ -141,6 +141,12 @@ textarea {
     color: #fff;
 }
 
+.delete {
+    font-size: 1.5em;
+    color: #bd3838;
+    margin-left: auto;
+}
+
 /* Containers */
 .container-flex {
     display: flex;
@@ -205,9 +211,9 @@ textarea {
     max-width: 700px;
     width: 700px;
     margin: 20px 0;
-    cursor: pointer;
     box-shadow: 3px 3px 15px black;
     display: flex;
+    flex-direction: column;
     overflow-y: scroll;
 }
 
@@ -226,6 +232,9 @@ textarea {
 .overflow-scroll {
     overflow-y: scroll;
     height: 100vh;
+}
+.cursor {
+    cursor: pointer;
 }
 
 /* Load Indicators */
@@ -274,6 +283,12 @@ textarea {
 }
 .align {
     align-items: center;
+}
+.right {
+    margin-left: auto;
+}
+.full {
+    width: 100%;
 }
 
 input[type='range'] {

@@ -3,7 +3,7 @@ import axios from 'axios';
 const queryIndex = async (vectors, topK) => {
     const options = {
         method: 'POST',
-        url: process.env.QUERY_URL,
+        url: `${process.env.PINECONE_URL}/query`,
         headers: {
             accept: 'application/json',
             'content-type': 'application/json',
@@ -30,7 +30,7 @@ const upsert = async (payload) => {
     console.log('Upserting vectors...');
     const options = {
         method: 'POST',
-        url: process.env.UPSERT_URL,
+        url: `${process.env.PINECONE_URL}/vectors/upsert`,
         headers: {
             accept: 'application/json',
             'content-type': 'application/json',

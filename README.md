@@ -2,6 +2,11 @@
 
 This app is an interface to OpenAI's gpt-3.5-turbo API with its own set of features.
 
+## Breaking Changes:
+
+Made changes to the .env requirements. `QUERY_URL` and `UPSERT_URL` are no longer needed. The app now only needs
+`PINECONE_URL=yourindexurl`
+
 #### Features include:
 
 1. Mulitple personas to choose from. More to come later.
@@ -13,7 +18,7 @@ This app is an interface to OpenAI's gpt-3.5-turbo API with its own set of featu
 #### Roadmap:
 
 1. Add the ability to import documents into the databases increasing the knowledge of the bots.
-2. Add ability for the user to use custom personas from the frontend.
+2. ~~Add ability for the user to use custom personas from the frontend.~~
 
 If you have a feature you would like to see implemented, open up a discussion.
 
@@ -55,8 +60,7 @@ Next you'll need to create a `.env` file, then add the following:
  PORT=5000 # This will change the port the express server uses.
  OPEN_AI_KEY=your-openai-key
  PINECONE_API=your-pinecone-key
- QUERY_URL=https://indexname-2342342a.svc.us-east1-gcp.pinecone.io/query # Insert your index location here, and make sure /query is on the end
- UPSERT_URL=https://memories-2342342a.svc.us-east1-gcp.pinecone.io/vectors/upsert # Insert your indexlocation here and make sure /vectors/upsert is on the end
+ PINECONE_URL=https://indexname-2342342a.svc.us-east1-gcp.pinecone.io # Insert your index location here
  MONGODB=mongodb://localhost:27017/memories # Put in your mongodb connection string here
  topK=3 # This determines how many related matches are injected into the prompt, keep it at 2 or 3 to keep tokens low
 

@@ -10,7 +10,9 @@ const Settings = memo(({ botSettings, settingsChange, reset }) => {
 
                     <select id='options' onChange={settingsChange} name='persona' value={botSettings.persona}>
                         {personas.map((name, index) => (
-                            <option value={`${index}`}>{name}</option>
+                            <option value={`${index}`} key={index}>
+                                {name}
+                            </option>
                         ))}
                     </select>
                     <label className='value-label' htmlFor='customPersona'>
