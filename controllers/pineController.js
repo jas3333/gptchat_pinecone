@@ -8,7 +8,7 @@ const queryPinecone = async (req, res) => {
     const query = req.body.query;
 
     const vectors = await getEmbeddings(query);
-    const pineconeResults = await queryIndex(vectors, 50);
+    const pineconeResults = await queryIndex(vectors, 100);
 
     const messages = await getMessages(pineconeResults, 0.7);
     console.log(messages);
