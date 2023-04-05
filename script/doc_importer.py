@@ -22,7 +22,7 @@ headers = {"Content-Type": "application/json",
 embeddings_url = "https://api.openai.com/v1/embeddings"
 mongo_db_connection = os.getenv("MONGODB")
 mongo_db_name = os.getenv("mongo_db_name")
-mongo_collection = os.getenv("mongo_collection")
+mongo_collection = 'messages'
 
 # Mongo DB Connection
 client = pymongo.MongoClient(mongo_db_connection)
