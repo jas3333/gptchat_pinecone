@@ -21,7 +21,6 @@ MONGODB=mongodb://localhost:27017 --- Your connection to Mongodb
 PINECONE_ENV=us-east1-gcp --- Environment found on Pinecone site
 pinecone_index=name of your index
 mongo_db_name=mongo database name
-mongo_collection=mongodb collection name
 ```
 
 #### How to Use:
