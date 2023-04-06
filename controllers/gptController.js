@@ -8,7 +8,9 @@ const sendQuestion = async (req, res) => {
     const processLog = [];
 
     // Sets conversation length
-    const conversation = req.body.conversation.length >= 3 ? req.body.conversation.slice(-3) : req.body.conversation;
+    const contextSize = req.body.contextSize;
+    const conversation =
+        req.body.conversation.length >= contextSize ? req.body.conversation.slice(-contextSize) : req.body.conversation;
     const conversationInjection = conversation.map((item) => `${item.promptQuestion}\n${item.botResponse}`);
     const messageInjection = req.body.messagesToInject.map((item) => item.message);
     console.log(`Messages to INJECT: ${messageInjection}`);

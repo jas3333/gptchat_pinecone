@@ -107,6 +107,19 @@ const Settings = memo(({ botSettings, settingsChange, reset }) => {
                         onChange={settingsChange}
                         title='This setting is also used in natural language processing and adjusts the importance of word frequency in the context of a conversation. A high frequency penalty means that the model will be less likely to generate a response that includes frequently used words. On the other hand, a low frequency penalty means that the model will be more likely to generate a response that includes frequently used words.'
                     />
+                    <label className='value-label'>Context Size: {botSettings.contextSize}</label>
+                    <input
+                        className='slider'
+                        id='contextSize'
+                        type='range'
+                        min='1'
+                        max='10'
+                        step='1'
+                        name='contextSize'
+                        value={botSettings.contextSize}
+                        onChange={settingsChange}
+                        title='This will change the size of the bots memory. Setting this too high may exceed the token limit.'
+                    />
                 </div>
             </form>
             <div className='container-flex'>

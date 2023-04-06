@@ -18,6 +18,7 @@ function App() {
     const [botSettings, setBotSettings] = useState({
         persona: 0,
         customPersona: '',
+        contextSize: 3,
         tokens: 2050,
         temperature: 0,
         presencePenalty: 0,
