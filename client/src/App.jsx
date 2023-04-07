@@ -19,6 +19,7 @@ function App() {
         persona: 0,
         customPersona: '',
         contextSize: 3,
+        vectorScore: 0.85,
         tokens: 2050,
         temperature: 0,
         presencePenalty: 0,
@@ -87,6 +88,7 @@ function App() {
 
     const reset = async () => {
         setConversation([]);
+        setSummaryCounter(0);
         localStorage.removeItem('conversation');
     };
 

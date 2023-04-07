@@ -13,10 +13,11 @@ const sendQuestion = async (req, res) => {
         req.body.conversation.length >= contextSize ? req.body.conversation.slice(-contextSize) : req.body.conversation;
     const conversationInjection = conversation.map((item) => `${item.promptQuestion}\n${item.botResponse}`);
     const messageInjection = req.body.messagesToInject.map((item) => item.message);
-    console.log(`Messages to INJECT: ${messageInjection}`);
     let selectedPersona = req.body.persona;
     const customPersona = req.body.customPersona;
+
     processLog.push(`Custom persona: ${customPersona}`);
+    processLog.push(`Vector Score: ${req.body.vectorScore}`);
 
     if (customPersona) {
         selectedPersona = personas.length;
@@ -24,7 +25,7 @@ const sendQuestion = async (req, res) => {
         personas.push(newPersona);
     }
 
-    processLog.push(`Message injection: ${messageInjection}`);
+    processLog.push(`Semantic search injection: ${messageInjection}`);
 
     let vector = await getEmbeddings(req.body.promptQuestion);
     let uniqueID = uuidv4();
@@ -34,9 +35,10 @@ const sendQuestion = async (req, res) => {
 
     processLog.push(`Pinecone results: ${JSON.stringify(pineconeResults)}\n`);
 
-    const messages = await getMessages(pineconeResults, 0.9);
+    const getMessageData = await getMessages(pineconeResults, req.body.vectorScore);
+    const messages = getMessageData.map((item) => item.message);
 
-    processLog.push(`getMessages results: ${messages}\n`);
+    processLog.push(`Message Injection: ${messages}\n`);
 
     messages.push(messageInjection);
 

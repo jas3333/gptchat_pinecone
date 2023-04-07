@@ -15,9 +15,7 @@ const Settings = memo(({ botSettings, settingsChange, reset }) => {
                             </option>
                         ))}
                     </select>
-                    <label className='value-label' htmlFor='customPersona'>
-                        Custom:
-                    </label>
+                    <label className='value-label'>Custom:</label>
                     <textarea
                         rows='5'
                         cols='10'
@@ -28,9 +26,7 @@ const Settings = memo(({ botSettings, settingsChange, reset }) => {
                         onChange={settingsChange}
                     />
 
-                    <label className='value-label' htmlFor='tokens'>
-                        Tokens: {botSettings.tokens}
-                    </label>
+                    <label className='value-label'>Tokens: {botSettings.tokens}</label>
                     <input
                         className='slider'
                         id='tokens'
@@ -44,9 +40,7 @@ const Settings = memo(({ botSettings, settingsChange, reset }) => {
                         title="Sets the token limit. While the max is around 4k tokens, it will reject the api call if it's set too high."
                     />
 
-                    <label className='value-label' htmlFor='tokens'>
-                        Temperature: {botSettings.temperature}
-                    </label>
+                    <label className='value-label'>Temperature: {botSettings.temperature}</label>
                     <input
                         className='slider'
                         id='tokens'
@@ -60,9 +54,7 @@ const Settings = memo(({ botSettings, settingsChange, reset }) => {
                         title='What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. Best set to 0.'
                     />
 
-                    <label className='value-label' htmlFor='tokens'>
-                        Top_P: {botSettings.top_p}
-                    </label>
+                    <label className='value-label'>Top_P: {botSettings.top_p}</label>
                     <input
                         className='slider'
                         id='tokens'
@@ -76,9 +68,7 @@ const Settings = memo(({ botSettings, settingsChange, reset }) => {
                         title='Adjust the top_p parameter to control the diversity of generated text. A higher value results in more diverse text, while a lower value results in more predictable text.'
                     />
 
-                    <label className='value-label' htmlFor='tokens'>
-                        Presence Penalty: {botSettings.presencePenalty}
-                    </label>
+                    <label className='value-label'>Presence Penalty: {botSettings.presencePenalty}</label>
                     <input
                         className='slider'
                         id='tokens'
@@ -92,9 +82,7 @@ const Settings = memo(({ botSettings, settingsChange, reset }) => {
                         title="The presence_penalty setting is used in natural language processing to adjust the importance of presence in the context of a conversation. A high presence penalty means that the model will be less likely to generate a response that repeats or directly echoes the user's input. On the other hand, a low presence penalty means that the model will be more likely to generate a response that closely matches the user's input."
                     />
 
-                    <label className='value-label' htmlFor='tokens'>
-                        Frequency Penalty: {botSettings.frequencyPenalty}
-                    </label>
+                    <label className='value-label'>Frequency Penalty: {botSettings.frequencyPenalty}</label>
                     <input
                         className='slider'
                         id='tokens'
@@ -119,6 +107,19 @@ const Settings = memo(({ botSettings, settingsChange, reset }) => {
                         value={botSettings.contextSize}
                         onChange={settingsChange}
                         title='This will change the size of the bots memory. Setting this too high may exceed the token limit.'
+                    />
+                    <label className='value-label'>Vector Score: {botSettings.vectorScore}</label>
+                    <input
+                        className='slider'
+                        id='vectorScore'
+                        type='range'
+                        min='0.1'
+                        max='0.99'
+                        step='.01'
+                        name='vectorScore'
+                        value={botSettings.vectorScore}
+                        onChange={settingsChange}
+                        title='This will adjust the vector score, a higher score will inject more relevant data into the prompt.'
                     />
                 </div>
             </form>
