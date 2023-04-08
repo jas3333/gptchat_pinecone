@@ -25,6 +25,7 @@ function App() {
         presencePenalty: 0,
         frequencyPenalty: 0,
         top_p: 0.7,
+        topK: 3,
     });
 
     const settingsChange = (event) => {

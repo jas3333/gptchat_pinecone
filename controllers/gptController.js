@@ -18,6 +18,7 @@ const sendQuestion = async (req, res) => {
 
     processLog.push(`Custom persona: ${customPersona}`);
     processLog.push(`Vector Score: ${req.body.vectorScore}`);
+    processLog.push(`topK: ${req.body.topK}`);
 
     if (customPersona) {
         selectedPersona = personas.length;
@@ -31,7 +32,7 @@ const sendQuestion = async (req, res) => {
     let uniqueID = uuidv4();
 
     // Query Pinecone for matching info
-    const pineconeResults = await queryIndex(vector, 3);
+    const pineconeResults = await queryIndex(vector, req.body.topK);
 
     processLog.push(`Pinecone results: ${JSON.stringify(pineconeResults)}\n`);
 
@@ -99,9 +100,7 @@ const summarize = async (req, res) => {
     try {
         const vector = await getEmbeddings(data.data);
         const uniqueID = uuidv4();
-        processLog.push(`ADA Vectors: ${vector}\n`);
         const payload = { uniqueID, vector };
-        processLog.push(`Vector Payload: ${JSON.stringify(payload)}\n`);
 
         const metaData = {
             _id: uniqueID,

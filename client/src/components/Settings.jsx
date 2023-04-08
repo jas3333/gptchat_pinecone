@@ -95,6 +95,7 @@ const Settings = memo(({ botSettings, settingsChange, reset }) => {
                         onChange={settingsChange}
                         title='This setting is also used in natural language processing and adjusts the importance of word frequency in the context of a conversation. A high frequency penalty means that the model will be less likely to generate a response that includes frequently used words. On the other hand, a low frequency penalty means that the model will be more likely to generate a response that includes frequently used words.'
                     />
+
                     <label className='value-label'>Context Size: {botSettings.contextSize}</label>
                     <input
                         className='slider'
@@ -108,6 +109,7 @@ const Settings = memo(({ botSettings, settingsChange, reset }) => {
                         onChange={settingsChange}
                         title='This will change the size of the bots memory. Setting this too high may exceed the token limit.'
                     />
+
                     <label className='value-label'>Vector Score: {botSettings.vectorScore}</label>
                     <input
                         className='slider'
@@ -120,6 +122,19 @@ const Settings = memo(({ botSettings, settingsChange, reset }) => {
                         value={botSettings.vectorScore}
                         onChange={settingsChange}
                         title='This will adjust the vector score, a higher score will inject more relevant data into the prompt.'
+                    />
+                    <label className='value-label'>TopK: {botSettings.topK}</label>
+                    <input
+                        className='slider'
+                        id='topK'
+                        type='range'
+                        min='0'
+                        max='30'
+                        step='1'
+                        name='topK'
+                        value={botSettings.topK}
+                        onChange={settingsChange}
+                        title='This will adjust how many vectors will be returned to be injected into the prompt. Setting too high will most likely exceed the token count if you have too many matches.'
                     />
                 </div>
             </form>
