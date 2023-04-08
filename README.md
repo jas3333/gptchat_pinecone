@@ -62,7 +62,6 @@ Next you'll need to create a `.env` file, then add the following:
  PINECONE_API=your-pinecone-key
  PINECONE_URL=https://indexname-2342342a.svc.us-east1-gcp.pinecone.io # Insert your index location here
  MONGODB=mongodb://localhost:27017/memories # Put in your mongodb connection string here
- topK=3 # This determines how many related matches are injected into the prompt, keep it at 2 or 3 to keep tokens low
 
 ```
 
