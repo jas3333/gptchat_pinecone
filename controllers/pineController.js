@@ -1,8 +1,9 @@
 import Messages from './../models/messages.js';
 import axios from 'axios';
-import { queryIndex } from './../utils/pinecone.js';
+import { queryIndex, upsert } from './../utils/pinecone.js';
 import { getEmbeddings } from '../utils/tools.js';
 import { getMessages } from './../utils/tools.js';
+import { v4 as uuidv4 } from 'uuid';
 
 const queryPinecone = async (req, res) => {
     const query = req.body.query;
@@ -49,4 +50,20 @@ const deleteItem = async (req, res) => {
     }
 };
 
-export { queryPinecone, deleteItem };
+const uploadNote = async (req, res) => {
+    try {
+        const uniqueID = uuidv4();
+        const vector = await getEmbeddings(req.body.text);
+        const mongoData = { _id: uniqueID, message: req.body.text };
+
+        await upsert({ uniqueID, vector });
+        await Messages.create(mongoData);
+
+        res.status(200).json({ message: `Uploaded: ${mongoData}`, status: 'Sucessfully uploaded note.' });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
+
+export { queryPinecone, deleteItem, uploadNote };

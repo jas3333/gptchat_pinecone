@@ -54,7 +54,7 @@ const PineBox = ({ injectVector, setShowPineBox }) => {
 
     useEffect(() => {
         injectVector(selectedItems);
-    }, [selectedItems, injectVector]);
+    }, [selectedItems]);
 
     return (
         <div className='flex-box-col width-max overflow-scroll '>

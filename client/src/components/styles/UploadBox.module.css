@@ -3,6 +3,8 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
+    max-height: 100vh;
+    overflow: scroll;
 }
 .container {
     display: flex;
@@ -14,7 +16,6 @@
 
 .buttonBox {
     display: flex;
-    flex-direction: column;
     padding: 5px;
     margin-left: 3px;
 }
@@ -25,7 +26,7 @@
     color: #fff;
     border: solid 1px #fff;
     border-radius: 3px;
-    margin: 3px 0;
+    margin: 0 3px;
 }
 .button:hover {
     background: #fff;
@@ -47,4 +48,7 @@
     width: 100%;
     height: 1px;
     background: #fff;
+}
+.preview {
+    display: flex;
 }
