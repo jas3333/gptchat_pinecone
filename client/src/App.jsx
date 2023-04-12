@@ -1,9 +1,11 @@
+import style from './components/styles/App.module.css';
 import { useEffect, useState, memo } from 'react';
 import axios from 'axios';
 import Chatbox from './components/Chatbox';
 import Settings from './components/Settings';
 import PineBox from './components/PineBox';
 import UploadBox from './components/UploadBox';
+import Notify from './components/Notify';
 
 const MemoChatbox = memo(Chatbox);
 const MemoPineBox = memo(PineBox);
@@ -16,6 +18,8 @@ function App() {
     const [summaryCounter, setSummaryCounter] = useState(0);
     const [injection, setInjection] = useState([]);
     const [showPineBox, setShowPineBox] = useState(true);
+    const [showNotification, setShowNotification] = useState(true);
+    const [notification, setNotification] = useState({ message: '', type: '' });
 
     const [botSettings, setBotSettings] = useState({
         persona: 0,
@@ -47,7 +51,8 @@ function App() {
             ...botSettings,
         };
         try {
-            const response = await axios.post('/api/v1/gpt/summary', summaryData);
+            const response = await axios.post('http://localhost:4005/api/v1/gpt/summary', summaryData);
+            console.log(response);
         } catch (error) {
             console.log(error);
         }
@@ -58,7 +63,7 @@ function App() {
 
         try {
             setIsLoading(true);
-            const response = await axios.post('/api/v1/gpt', {
+            const response = await axios.post('http://localhost:4005/api/v1/gpt', {
                 promptQuestion,
                 ...botSettings,
                 conversation: [...conversation],
@@ -119,14 +124,23 @@ function App() {
         reset,
     };
 
+    const uploadBoxProps = {
+        setShowPineBox,
+        setNotification,
+        setShowNotification,
+    };
+
     return (
         <div className='container'>
-            <Settings {...settings} />
+            <div className={style.containerCol}>
+                <Settings {...settings} />
+                {showNotification && <Notify notification={notification} setShowNotification={setShowNotification} />}
+            </div>
             <MemoChatbox {...chatboxProps} />
             {showPineBox ? (
                 <MemoPineBox injectVector={injectVector} setShowPineBox={setShowPineBox} />
             ) : (
-                <UploadBox setShowPineBox={setShowPineBox} />
+                <UploadBox {...uploadBoxProps} />
             )}
         </div>
     );

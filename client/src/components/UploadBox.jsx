@@ -3,14 +3,17 @@ import style from './styles/UploadBox.module.css';
 import axios from 'axios';
 import DisplaySemantic from './DisplaySemantic';
 
-const UploadBox = ({ setShowPineBox }) => {
+const UploadBox = ({ setShowPineBox, setNotification, setShowNotification }) => {
     const [text, setText] = useState('');
     const [showPreview, setShowPreview] = useState(false);
 
     const onUpload = async () => {
         try {
-            const response = axios.post('/api/v1/pine/upload', { text });
+            const response = axios.post('http://localhost:4005/api/v1/pine/upload', { text });
             console.log(response);
+            setNotification({ message: 'Successfully uploaded note.', type: 'success' });
+            setShowNotification(true);
+            setText('');
         } catch (error) {
             console.log(error);
         }

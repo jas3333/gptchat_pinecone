@@ -25,7 +25,7 @@ const PineBox = ({ injectVector, setShowPineBox }) => {
 
         const newQuery = { query };
         try {
-            const response = await axios.post('/api/v1/pine', newQuery);
+            const response = await axios.post('http://localhost:4005/api/v1/pine', newQuery);
             const data = response.data.message;
 
             setPineQuery(data);
@@ -40,7 +40,8 @@ const PineBox = ({ injectVector, setShowPineBox }) => {
         setPineQuery(pineQuery.filter((item) => item._id !== id));
 
         try {
-            const response = await axios.delete(`/api/v1/pine/${id}`);
+            const response = await axios.delete(`http://localhost:4005/api/v1/pine/${id}`);
+
             console.log(response);
         } catch (error) {
             console.log(error);
@@ -54,7 +55,7 @@ const PineBox = ({ injectVector, setShowPineBox }) => {
 
     useEffect(() => {
         injectVector(selectedItems);
-    }, [selectedItems]);
+    }, [selectedItems, injectVector]);
 
     return (
         <div className='flex-box-col width-max overflow-scroll '>

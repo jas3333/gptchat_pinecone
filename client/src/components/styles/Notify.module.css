@@ -1,0 +1,11 @@
+.notifyContainerSuccess {
+    width: 100%;
+    padding: 15px;
+    background: #88af8b;
+}
+
+.notifyContainerError {
+    width: 100%;
+    padding: 15px;
+    background: #b35252;
+}

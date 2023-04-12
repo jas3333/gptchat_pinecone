@@ -59,7 +59,10 @@ const uploadNote = async (req, res) => {
         await upsert({ uniqueID, vector });
         await Messages.create(mongoData);
 
-        res.status(200).json({ message: `Uploaded: ${mongoData}`, status: 'Sucessfully uploaded note.' });
+        res.status(200).json({
+            message: `Uploaded: ${mongoData._id}, ${mongoData.message}`,
+            status: 'Sucessfully uploaded note.',
+        });
     } catch (error) {
         console.log(error);
         res.status(500).json({ message: 'Internal server error' });
