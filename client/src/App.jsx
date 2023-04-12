@@ -15,7 +15,7 @@ function App() {
     const [showModal, setShowModal] = useState(true);
     const [summaryCounter, setSummaryCounter] = useState(0);
     const [injection, setInjection] = useState([]);
-    const [showPineBox, setShowPineBox] = useState(false);
+    const [showPineBox, setShowPineBox] = useState(true);
 
     const [botSettings, setBotSettings] = useState({
         persona: 0,

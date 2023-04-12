@@ -14,6 +14,7 @@ Made changes to the .env requirements. `QUERY_URL` and `UPSERT_URL` are no longe
    around 10 previous conversations, while this version has a potential of a million+ thanks to
    Pinecone's vector database and OpenAI's embedding model.
 3. Added a search and inject section to manually search vector DB and inject the data into the prompt.
+4. Added textarea to upload text or notes. Format the text in markdown.
 
 #### Roadmap:
 
