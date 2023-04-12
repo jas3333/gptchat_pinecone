@@ -3,6 +3,7 @@ import axios from 'axios';
 import Chatbox from './components/Chatbox';
 import Settings from './components/Settings';
 import PineBox from './components/PineBox';
+import UploadBox from './components/UploadBox';
 
 const MemoChatbox = memo(Chatbox);
 const MemoPineBox = memo(PineBox);
@@ -14,6 +15,7 @@ function App() {
     const [showModal, setShowModal] = useState(true);
     const [summaryCounter, setSummaryCounter] = useState(0);
     const [injection, setInjection] = useState([]);
+    const [showPineBox, setShowPineBox] = useState(false);
 
     const [botSettings, setBotSettings] = useState({
         persona: 0,
@@ -121,7 +123,11 @@ function App() {
         <div className='container'>
             <Settings {...settings} />
             <MemoChatbox {...chatboxProps} />
-            <MemoPineBox injectVector={injectVector} />
+            {showPineBox ? (
+                <MemoPineBox injectVector={injectVector} setShowPineBox={setShowPineBox} />
+            ) : (
+                <UploadBox setShowPineBox={setShowPineBox} />
+            )}
         </div>
     );
 }

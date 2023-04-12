@@ -135,7 +135,7 @@ textarea {
     outline: none;
 }
 .icon {
-    font-size: 2em;
+    font-size: 1.8em;
     margin-left: 20px;
     cursor: pointer;
     color: #fff;
@@ -290,6 +290,13 @@ textarea {
 }
 .full {
     width: 100%;
+}
+
+.m-top-50 {
+    margin-top: 50px;
+}
+.m-left {
+    margin-left: 3px;
 }
 
 input[type='range'] {

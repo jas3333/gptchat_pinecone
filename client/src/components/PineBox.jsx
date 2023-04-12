@@ -2,11 +2,12 @@ import axios from 'axios';
 import { useEffect, useState, memo } from 'react';
 import { MdLayersClear, MdOutlineClearAll } from 'react-icons/md';
 import { TiDelete } from 'react-icons/ti';
+import { GiNotebook } from 'react-icons/gi';
 import DisplaySemantic from './DisplaySemantic';
 
 const MemoDisplaySemantic = memo(DisplaySemantic);
 
-const PineBox = ({ injectVector }) => {
+const PineBox = ({ injectVector, setShowPineBox }) => {
     const [query, setQuery] = useState('');
     const [pineQuery, setPineQuery] = useState([]);
     const [selectedItems, setSelectedItems] = useState([]);
@@ -53,7 +54,7 @@ const PineBox = ({ injectVector }) => {
 
     useEffect(() => {
         injectVector(selectedItems);
-    }, [selectedItems]);
+    }, [selectedItems, injectVector]);
 
     return (
         <div className='flex-box-col width-max overflow-scroll '>
@@ -73,6 +74,11 @@ const PineBox = ({ injectVector }) => {
                     onClick={() => setSelectedItems([])}
                 />
                 <MdOutlineClearAll className='icon' title='Clears the search' onClick={clearSearch} />
+                <GiNotebook
+                    className='icon'
+                    title='Add text via textarea and upload to DB'
+                    onClick={() => setShowPineBox(false)}
+                />
             </form>
             <div className='underline'></div>
 

@@ -1,0 +1,50 @@
+.mainContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+.container {
+    display: flex;
+}
+
+.form {
+    display: flex;
+}
+
+.buttonBox {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    margin-left: 3px;
+}
+
+.button {
+    padding: 5px;
+    background: #191c20;
+    color: #fff;
+    border: solid 1px #fff;
+    border-radius: 3px;
+    margin: 3px 0;
+}
+.button:hover {
+    background: #fff;
+    color: #191c20;
+}
+.button:active {
+    transform: scale(0.96);
+}
+
+.textArea {
+    padding: 5px;
+    border-radius: 10px;
+    background: #4b565e;
+    color: #fff;
+}
+
+.underline {
+    margin: 5px 0 15px 0;
+    width: 100%;
+    height: 1px;
+    background: #fff;
+}
