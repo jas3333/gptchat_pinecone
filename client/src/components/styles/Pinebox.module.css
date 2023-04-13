@@ -1,0 +1,59 @@
+.pineContainer {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    overflow-y: scroll;
+    max-height: 100vh;
+    width: 1000px;
+}
+
+.headerText {
+    margin: auto;
+}
+
+.formContainer {
+    margin: auto;
+    display: flex;
+    align-items: center;
+}
+
+.selected {
+    border: solid 2px #fff;
+    border-radius: 5px;
+}
+
+.icon {
+    font-size: 1.8em;
+    cursor: pointer;
+    color: #fff;
+    margin-left: 20px;
+}
+
+.cursor {
+    cursor: pointer;
+}
+
+.semanticSearch {
+    margin: 10px 0;
+    width: 350px;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+}
+
+.queryText {
+    display: flex;
+    padding: 15px;
+    width: 900px;
+    margin: 20px auto;
+    box-shadow: 3px 3px 15px black;
+    flex-direction: column;
+    overflow-y: scroll;
+}
+
+.delete {
+    font-size: 1.5em;
+    color: #bd3838;
+    margin-left: auto;
+}

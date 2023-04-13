@@ -207,15 +207,6 @@ textarea {
     width: 90%;
     margin-left: 50px;
 }
-.query-text {
-    padding: 15px;
-    width: 780px;
-    margin: 20px 0;
-    box-shadow: 3px 3px 15px black;
-    display: flex;
-    flex-direction: column;
-    overflow-y: scroll;
-}
 
 /* Decoration */
 .selected {
@@ -224,7 +215,8 @@ textarea {
 }
 .underline {
     background: #fff;
-    height: 1px;
+    margin: 5px 0;
+    padding: 1px 0;
     width: 100%;
 }
 

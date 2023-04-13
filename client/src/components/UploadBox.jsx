@@ -9,7 +9,7 @@ const UploadBox = ({ setShowPineBox, setNotification, setShowNotification }) => 
 
     const onUpload = async () => {
         try {
-            const response = axios.post('http://localhost:4005/api/v1/pine/upload', { text });
+            const response = axios.post('/api/v1/pine/upload', { text });
             console.log(response);
             setNotification({ message: 'Successfully uploaded note.', type: 'success' });
             setShowNotification(true);

@@ -1,5 +1,14 @@
-.containerCol {
+.mainContainer {
     display: flex;
+    width: 100%;
+}
+
+.containerCol {
     flex-direction: column;
     height: 100vh;
+}
+
+.sideContainer {
+    margin: 0 auto;
+    width: 100%;
 }

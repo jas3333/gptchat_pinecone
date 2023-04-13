@@ -6,15 +6,17 @@ import { getMessages } from './../utils/tools.js';
 import { v4 as uuidv4 } from 'uuid';
 
 const queryPinecone = async (req, res) => {
-    const query = req.body.query;
+    try {
+        const vectors = await getEmbeddings(req.body.query);
+        const pineconeResults = await queryIndex(vectors, 50);
+        const messages = await getMessages(pineconeResults, 0.7);
 
-    const vectors = await getEmbeddings(query);
-    const pineconeResults = await queryIndex(vectors, 100);
-
-    const messages = await getMessages(pineconeResults, 0.7);
-    console.log(messages);
-
-    res.status(200).json({ message: messages });
+        // console.log(processLog.join('\n'));
+        res.status(200).json({ message: messages });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
 };
 
 const deleteItem = async (req, res) => {

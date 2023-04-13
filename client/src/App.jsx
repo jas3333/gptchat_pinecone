@@ -18,7 +18,7 @@ function App() {
     const [summaryCounter, setSummaryCounter] = useState(0);
     const [injection, setInjection] = useState([]);
     const [showPineBox, setShowPineBox] = useState(true);
-    const [showNotification, setShowNotification] = useState(true);
+    const [showNotification, setShowNotification] = useState(false);
     const [notification, setNotification] = useState({ message: '', type: '' });
 
     const [botSettings, setBotSettings] = useState({
@@ -51,7 +51,7 @@ function App() {
             ...botSettings,
         };
         try {
-            const response = await axios.post('http://localhost:4005/api/v1/gpt/summary', summaryData);
+            const response = await axios.post('/api/v1/gpt/summary', summaryData);
             console.log(response);
         } catch (error) {
             console.log(error);
@@ -63,7 +63,7 @@ function App() {
 
         try {
             setIsLoading(true);
-            const response = await axios.post('http://localhost:4005/api/v1/gpt', {
+            const response = await axios.post('/api/v1/gpt', {
                 promptQuestion,
                 ...botSettings,
                 conversation: [...conversation],
@@ -98,6 +98,8 @@ function App() {
         setConversation([]);
         setSummaryCounter(0);
         localStorage.removeItem('conversation');
+        setNotification({ message: 'Conversation reset.', type: 'success' });
+        setShowNotification(true);
     };
 
     useEffect(() => {
@@ -131,17 +133,19 @@ function App() {
     };
 
     return (
-        <div className='container'>
+        <div className={style.mainContainer}>
             <div className={style.containerCol}>
                 <Settings {...settings} />
                 {showNotification && <Notify notification={notification} setShowNotification={setShowNotification} />}
             </div>
             <MemoChatbox {...chatboxProps} />
-            {showPineBox ? (
-                <MemoPineBox injectVector={injectVector} setShowPineBox={setShowPineBox} />
-            ) : (
-                <UploadBox {...uploadBoxProps} />
-            )}
+            <div className={style.sideContainer}>
+                {showPineBox ? (
+                    <MemoPineBox injectVector={injectVector} setShowPineBox={setShowPineBox} />
+                ) : (
+                    <UploadBox {...uploadBoxProps} />
+                )}
+            </div>
         </div>
     );
 }

@@ -1,3 +1,4 @@
+import style from './styles/Pinebox.module.css';
 import axios from 'axios';
 import { useEffect, useState, memo } from 'react';
 import { MdLayersClear, MdOutlineClearAll } from 'react-icons/md';
@@ -23,12 +24,9 @@ const PineBox = ({ injectVector, setShowPineBox }) => {
     const onSubmit = async (event) => {
         event.preventDefault();
 
-        const newQuery = { query };
         try {
-            const response = await axios.post('http://localhost:4005/api/v1/pine', newQuery);
-            const data = response.data.message;
-
-            setPineQuery(data);
+            const response = await axios.post('http://localhost:4005/api/v1/pine', { query });
+            setPineQuery(response.data.message);
         } catch (error) {
             console.log(error);
         }
@@ -40,7 +38,7 @@ const PineBox = ({ injectVector, setShowPineBox }) => {
         setPineQuery(pineQuery.filter((item) => item._id !== id));
 
         try {
-            const response = await axios.delete(`http://localhost:4005/api/v1/pine/${id}`);
+            const response = await axios.delete(`/api/v1/pine/${id}`);
 
             console.log(response);
         } catch (error) {
@@ -58,25 +56,25 @@ const PineBox = ({ injectVector, setShowPineBox }) => {
     }, [selectedItems, injectVector]);
 
     return (
-        <div className='flex-box-col width-max overflow-scroll '>
-            <div className='flex-box center'>
+        <div className={style.pineContainer}>
+            <div className={style.headerText}>
                 <h1>Semantic Search & Injection</h1>
             </div>
-            <form className='flex-box center align' onSubmit={onSubmit}>
+            <form className={style.formContainer} onSubmit={onSubmit}>
                 <input
                     placeholder='Search'
-                    className='semantic-search'
+                    className={style.semanticSearch}
                     value={query}
                     onChange={(event) => setQuery(event.target.value)}
                 />
                 <MdLayersClear
-                    className='icon'
+                    className={style.icon}
                     title='Clears selected search items.'
                     onClick={() => setSelectedItems([])}
                 />
-                <MdOutlineClearAll className='icon' title='Clears the search' onClick={clearSearch} />
+                <MdOutlineClearAll className={style.icon} title='Clears the search' onClick={clearSearch} />
                 <GiNotebook
-                    className='icon'
+                    className={style.icon}
                     title='Add text via textarea and upload to DB'
                     onClick={() => setShowPineBox(false)}
                 />
@@ -85,15 +83,18 @@ const PineBox = ({ injectVector, setShowPineBox }) => {
 
             <div>
                 {pineQuery.map((item, index) => (
-                    <div className={`query-text center ${selectedItems.includes(item) ? 'selected' : ''} `} key={index}>
-                        <div className='delete'>
+                    <div
+                        className={`${style.queryText} ${selectedItems.includes(item) ? style.selected : ''} `}
+                        key={index}
+                    >
+                        <div className={style.delete}>
                             <TiDelete
-                                className='cursor'
+                                className={style.cursor}
                                 onClick={() => deleteItem(item)}
                                 title='This will remove the item from both databases.'
                             />
                         </div>
-                        <div onClick={() => handleClick(item)} className='cursor'>
+                        <div onClick={() => handleClick(item)} className={style.cursor}>
                             <MemoDisplaySemantic item={item.message} />
                         </div>
                     </div>

@@ -50,17 +50,21 @@ const callGPT = async (prompt, temperature, top_p, maxTokens, presencePenalty, f
 };
 
 const getMessages = async (pineconeResults, score) => {
-    let ids = [];
     let messages = [];
 
     try {
-        ids = pineconeResults.matches.filter((match) => match.score >= score).map((match) => match.id);
-        const mongoQuery = await Messages.find({ _id: { $in: ids } });
-        messages = mongoQuery.map((item) => ({ message: item.message, _id: item._id }));
+        for (let i = 0; i < pineconeResults.matches.length; i++) {
+            if (pineconeResults.matches[i].score >= score) {
+                const mongoQuery = await Messages.findOne({ _id: pineconeResults.matches[i].id });
+
+                if (mongoQuery) {
+                    messages.push(mongoQuery);
+                }
+            }
+        }
     } catch (error) {
         console.log(error);
     }
-
     return messages;
 };
 
